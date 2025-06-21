@@ -12,7 +12,6 @@
 namespace Leapfu\CloudPrinter\ThinkPHP\Facade;
 
 use think\Facade;
-use Leapfu\CloudPrinter\CloudPrinter;
 use Leapfu\CloudPrinter\Contracts\PrinterInterface;
 
 /**
@@ -28,6 +27,6 @@ class CloudPrinter extends Facade
      */
     protected static function getFacadeClass(): string
     {
-        return CloudPrinter::class;
+        return Leapfu\CloudPrinter\CloudPrinter::class;
     }
 }

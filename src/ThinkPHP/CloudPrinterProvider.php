@@ -11,23 +11,35 @@
 
 namespace Leapfu\CloudPrinter\ThinkPHP;
 
-use think\App;
+use think\Service;
 use Leapfu\CloudPrinter\CloudPrinter;
 use think\Facade;
 
-class CloudPrinterProvider
+class CloudPrinterProvider extends Service
 {
-    public function register(App $app)
+    public function register()
     {
         $this->app->bind(CloudPrinter::class, function () {
-            $config = $this->app->config->get('cloudprint');
+            $config = $this->app->config->get('cloudprint', []);
             $instance = new CloudPrinter($config);
-            $instance->setLogger($this->app->log);
-            $instance->setCache($this->app->cache);
+            
+            // 设置日志和缓存（如果可用）
+            if ($this->app->has('log')) {
+                $instance->setLogger($this->app->log);
+            }
+            if ($this->app->has('cache')) {
+                $instance->setCache($this->app->cache);
+            }
+            
             return $instance;
         });
 
         // 注册门面
-        Facade::bind('CloudPrinter', CloudPrinter::class);
+        Facade::bind('cloud_printer', CloudPrinter::class);
+    }
+
+    public function boot()
+    {
+        // 启动时的初始化逻辑（如果需要）
     }
 }
