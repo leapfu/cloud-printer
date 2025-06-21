@@ -13,7 +13,6 @@ namespace Leapfu\CloudPrinter\ThinkPHP;
 
 use think\Service;
 use Leapfu\CloudPrinter\CloudPrinter;
-use think\Facade;
 
 class CloudPrinterProvider extends Service
 {
@@ -34,8 +33,8 @@ class CloudPrinterProvider extends Service
             return $instance;
         });
 
-        // 注册门面
-        Facade::bind('cloud_printer', CloudPrinter::class);
+        // 注册助手函数
+        $this->app->bind('cloud_printer', CloudPrinter::class);
     }
 
     public function boot()

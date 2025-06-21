@@ -27,6 +27,6 @@ class CloudPrinter extends Facade
      */
     protected static function getFacadeClass(): string
     {
-        return Leapfu\CloudPrinter\CloudPrinter::class;
+        return 'cloud_printer';
     }
 }
